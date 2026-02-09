@@ -1,16 +1,87 @@
-# React + Vite
+# NUMERANO Feedback Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-stack feedback application built with React (Vite), Node.js, Express, and MongoDB.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+-   **Frontend**: React, TypeScript, Tailwind CSS, Framer Motion (for smooth animations).
+-   **Backend**: Node.js, Express.js, MongoDB (Mongoose).
+-   **Validation**: Frontend and Backend validation to ensure data integrity.
+-   **Dockerized**: Fully containerized setup for easy deployment.
 
-## React Compiler
+## Prerequisites
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+-   [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/) installed on your machine.
+-   OR [Node.js](https://nodejs.org/) (v14+) and [MongoDB](https://www.mongodb.com/) for local setup.
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/your-username/numerano-feedback.git
+cd numerano-feedback
+```
+
+### 2. Environment Setup
+
+Copy the example environment file in the `server` directory and update it with your credentials:
+
+```bash
+cp server/.env.example server/.env
+```
+
+Open `server/.env` and replace `your_mongodb_atlas_connection_string` with your actual MongoDB URI.
+
+### 3. Running with Docker (Recommended)
+
+Run the following command to build and start the application:
+
+```bash
+docker-compose up --build
+```
+
+-   **Frontend**: [http://localhost:5173](http://localhost:5173)
+-   **Backend**: [http://localhost:8000](http://localhost:8000)
+
+### 4. Running Locally
+
+**Backend:**
+
+```bash
+cd server
+npm install
+npm run dev
+```
+
+**Frontend:**
+
+```bash
+# In a new terminal
+npm install
+npm run dev
+```
+
+## API Endpoints
+
+-   `POST /api/feedback`: Submit feedback.
+-   `GET /api/health`: Health check.
+
+## Project Structure
+
+```
+.
+├── server/                 # Backend (Node.js/Express)
+│   ├── config/             # Database configuration
+│   ├── controllers/        # Route controllers
+│   ├── models/             # Mongoose models
+│   ├── routes/             # API routes
+│   └── index.js            # Entry point
+├── src/                    # Frontend (React/Vite)
+├── docker-compose.yml      # Docker orchestration
+└── Dockerfile              # Frontend Dockerfile
+```
+
+## Contributors
+
+-   Kushagra Singh

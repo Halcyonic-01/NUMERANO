@@ -14,7 +14,9 @@ services:
       - PORT=8000
 
   frontend:
-    build: .
+    build:
+      context: .
+      target: dev
     ports:
       - "5173:5173"
     volumes:

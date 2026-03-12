@@ -1,26 +1,7 @@
 const BrainBuff = require('../models/BrainBuff');
 const { generateBrainBuffQuestion } = require('../services/geminiService');
 
-// Helper to get current week ID e.g., "2026-W07"
-const getWeekId = () => {
-    const now = new Date();
-    const d = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
-    const dayNr = (d.getDay() + 6) % 7;
-    d.setDate(d.getDate() - dayNr + 3);
-    const firstThursday = d.valueOf();
-    d.setMonth(0, 1);
-    if (d.getDay() !== 4) {
-        d.setMonth(0, 1 + ((4 - d.getDay()) + 7) % 7);
-    }
-    return 1 + Math.ceil((firstThursday - d) / 604800000);
-};
-
-const getCurrentWeekId = () => {
-    const date = new Date();
-    const year = date.getFullYear();
-    const week = getWeekId();
-    return `${year}-W${week.toString().padStart(2, '0')}`;
-}
+const { getWeekId } = require('../utils/dateHelpers');
 
 const getCurrentBrainBuff = async (req, res) => {
     try {
@@ -40,7 +21,7 @@ const getCurrentBrainBuff = async (req, res) => {
                 // Generate question via Gemini
                 const generatedData = await generateBrainBuffQuestion('Medium');
 
-                const weekId = getCurrentWeekId();
+                const weekId = getWeekId();
                 const nextWeek = new Date();
                 nextWeek.setDate(nextWeek.getDate() + 7); // Expire in 7 days
 
@@ -79,7 +60,7 @@ const forceGenerateBrainBuff = async (req, res) => {
     // Admin/Testing endpoint to force generation
     try {
         const generatedData = await generateBrainBuffQuestion('Medium');
-        const weekId = getCurrentWeekId() + '-' + Date.now(); // Unique for testing
+        const weekId = getWeekId() + '-' + Date.now(); // Unique for testing
 
         const nextWeek = new Date();
         nextWeek.setDate(nextWeek.getDate() + 7);

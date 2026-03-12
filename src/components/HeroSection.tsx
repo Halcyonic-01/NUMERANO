@@ -19,12 +19,8 @@ type ShapeItem = {
   style: React.CSSProperties;
 };
 
-
 export default function HeroSection() {
   const shapes: ShapeItem[] = [
-    // { Component: ShapeParaboloid, style: { left: "22%", top: "10%", transform: "rotate(-30deg) scale(0.75)" } },
-    // { Component: ShapeHyperboloid, style: { left: "68%", top: "72%", transform: "rotate(28deg) scale(0.9)" } },
-
     { Component: ShapeCube, style: { left: "8%", top: "12%", transform: "rotate(18deg) scale(0.8)" } },
     { Component: ShapeCylinder, style: { left: "25%", top: "8%", transform: "rotate(-22deg) scale(0.7)" } },
     { Component: ShapeParaboloid, style: { left: "52%", top: "10%", transform: "rotate(-30deg) scale(0.75)" } },
@@ -49,7 +45,6 @@ export default function HeroSection() {
     { Component: ShapeHyperbola2D, style: { left: "2%", top: "40%", transform: "rotate(-30deg) scale(0.75)" } },
     { Component: ShapeHelicoid, style: { left: "1%", top: "60%", transform: "rotate(30deg) scale(0.8)" } },
 
-
     { Component: ShapeCylinder, style: { left: "14%", top: "79%", transform: "rotate(22deg) scale(0.75)" } },
     { Component: ShapeDonut, style: { left: "32%", top: "78%", transform: "rotate(-28deg) scale(0.8)" } },
     { Component: ShapeSphere, style: { left: "60%", top: "80%", transform: "rotate(30deg) scale(0.75)" } },
@@ -59,47 +54,20 @@ export default function HeroSection() {
   return (
     <section className="relative h-screen w-full overflow-hidden">
       <style>{`
-        @keyframes gradientMove {
-          0% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
+        @keyframes float {
+          0%, 100% { transform: translateY(0px) translateX(0px); }
+          50% { transform: translateY(-10px) translateX(5px); }
         }
 
         .hero-bg {  
           background:
-            /* soft nebula highlights */
-            radial-gradient(
-              600px circle at 30% 35%,
-              rgba(168, 85, 247, 0.22),
-              transparent 60%
-            ),
-            radial-gradient(
-              500px circle at 70% 30%,
-              rgba(59, 130, 246, 0.18),
-              transparent 65%
-            ),
-            radial-gradient(
-              700px circle at 50% 75%,
-              rgba(147, 51, 234, 0.18),
-              transparent 70%
-            ),
-
-            /* main cosmic base */
-            linear-gradient(
-              135deg,
-              #050914 0%,
-              #07142a 35%,
-              #0b1f3a 55%,
-              #090f24 100%
-            );
+            radial-gradient(600px circle at 30% 35%, rgba(168, 85, 247, 0.15), transparent 60%),
+            radial-gradient(500px circle at 70% 30%, rgba(59, 130, 246, 0.12), transparent 65%),
+            radial-gradient(700px circle at 50% 75%, rgba(147, 51, 234, 0.12), transparent 70%);
         }
 
         .vignette {
-          background: radial-gradient(
-            ellipse at center,
-            rgba(0,0,0,0) 0%,
-            rgba(0,0,0,0.65) 100%
-          );
+          background: radial-gradient(ellipse at center, rgba(0,0,0,0) 0%, rgba(0,0,0,0.4) 100%);
         }
 
         .shape {
@@ -116,6 +84,7 @@ export default function HeroSection() {
         }
       `}</style>
 
+      {/* Hero gradient overlays */}
       <div className="absolute inset-0 hero-bg" />
       <div className="absolute inset-0 pointer-events-none vignette" />
 

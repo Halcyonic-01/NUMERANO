@@ -50,12 +50,6 @@ export const teams: Team[] = [
                                 "quote": "Building calm solutions in a chaotic world"
                         },
                         {
-                                "name": "Amit Kumar Singh",
-                                "role": "Member",
-                                "photo": "/team/amit-kumar-singh.jpg",
-                                "quote": "MYSTARTUPWAVE"
-                        },
-                        {
                                 "name": "Amanraz Thakur",
                                 "role": "Member",
                                 "photo": "/team/amanraz-thakur.jpg",

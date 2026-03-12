@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Activities from './pages/Activities';
 import Faculty from './pages/Faculty';
 import Members from './pages/Members';
+import Teams from './pages/Teams';
 import Feedback from './pages/Feedback';
 import BrainBuffPage from './pages/BrainBuffPage';
 import { motion, useScroll, useSpring } from 'framer-motion';
@@ -32,6 +33,7 @@ function App() {
           <Route path="/" element={
             <>
               <section id="home"><Home /></section>
+              <section id="teams"><Teams /></section>
               <section id="activities"><Activities /></section>
               <section id="faculty"><Faculty /></section>
               <section id="members"><Members /></section>

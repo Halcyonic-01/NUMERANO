@@ -1,7 +1,6 @@
-// @ts-ignore
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { getCurrentBrainBuff } from '../../services/brainBuffService';
+import { getCurrentBrainBuff, BrainBuffData } from '../../services/brainBuffService';
 import Timer from './Timer';
 import QuestionDisplay from './QuestionDisplay';
 import { Loader2, AlertCircle } from 'lucide-react';
@@ -9,7 +8,7 @@ import { Loader2, AlertCircle } from 'lucide-react';
 const BrainBuffContainer = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-    const [questionData, setQuestionData] = useState<any>(null);
+    const [questionData, setQuestionData] = useState<BrainBuffData | null>(null);
     const [selectedOption, setSelectedOption] = useState<string | null>(null);
     const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
     const [timerActive, setTimerActive] = useState(false);

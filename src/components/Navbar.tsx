@@ -1,7 +1,4 @@
-// @ts-ignore
-import * as React from 'react';
-// @ts-ignore
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
 
@@ -39,9 +36,8 @@ export default function Navbar() {
 
     const navLinks = [
         { name: 'Home', id: 'home' },
+        { name: 'Teams', id: 'teams' },
         { name: 'Activities', id: 'activities' },
-        { name: 'Faculty', id: 'faculty' },
-        { name: 'Members', id: 'members' },
         { name: 'Feedback', id: 'feedback' },
         { name: 'BrainBuff', id: 'BrainBuff' },
     ];

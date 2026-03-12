@@ -8,28 +8,28 @@ export default function Activities() {
     const events: Event[] = [
         {
             id: 1,
-            title: "Math Olympiad 2025",
-            date: "March 15, 2025",
-            description: "Our annual inter-college mathematics competition saw participation from over 500 students. The event featured challenging problem-solving rounds and a guest lecture by Dr. A. Ramanujan.",
-            imageUrl: "https://placehold.co/600x400/0a192f/FFF?text=Math+Olympiad",
-            highlights: ["500+ Participants", "20 Colleges", "Cash Prizes worth 50k"],
+            title: "Matrix 2026",
+            date: "Upcoming 2026",
+            description: "The next iteration of our flagship mathematics and technology fest. Stay tuned for bigger competitions, more exciting workshops, and incredible guest speakers.",
+            imageUrl: "https://placehold.co/600x400/0a192f/06b6d4?text=Matrix+2026",
+            highlights: ["Mega Competitions", "Workshops", "Guest Lectures"],
             videoUrl: ""
         },
         {
             id: 2,
-            title: "Pi Day Celebration",
-            date: "March 14, 2025",
-            description: "Celebrating the most famous constant in mathematics with pie-eating contests and recitation challenges. We set a new club record of 314 digits memorized!",
-            imageUrl: "https://placehold.co/600x400/0a192f/FFF?text=Pi+Day",
-            highlights: ["Pie Eating Contest", "Recitation Challenge", "Interactive Workshops"]
+            title: "Matrix 2025",
+            date: "March 2025",
+            description: "Our highly anticipated annual fest featuring intense mathematical challenges, competitive events, and interactive exhibitions showcasing the beauty of numbers.",
+            imageUrl: "https://placehold.co/600x400/0a192f/06b6d4?text=Matrix+2025",
+            highlights: ["Math Exhibitions", "Quizzes", "Cash Prizes"]
         },
         {
             id: 3,
-            title: "Guest Lecture Series",
-            date: "Feb 20, 2025",
-            description: "A fascinating talk on 'The Poetry of Prime Numbers' by Prof. Sarah Jones. Explored the distribution of primes and the Riemann Hypothesis.",
-            imageUrl: "https://placehold.co/600x400/0a192f/FFF?text=Guest+Lecture",
-            highlights: ["Full House Attendance", "Q&A Session", "Networking Dinner"]
+            title: "Matrix 2024",
+            date: "March 2024",
+            description: "A tremendously successful event with massive participation across various colleges. Featured flagship events like the Integration Bee and challenging Treasure Hunts.",
+            imageUrl: "https://placehold.co/600x400/0a192f/06b6d4?text=Matrix+2024",
+            highlights: ["Massive Participation", "Integration Bee", "Treasure Hunt"]
         }
     ];
 
@@ -49,16 +49,16 @@ export default function Activities() {
     };
 
     return (
-        <div className="bg-gray-50 py-20 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-7xl mx-auto">
+        <div className="py-20 px-4 sm:px-6 lg:px-8 relative z-10 pointer-events-none">
+            <div className="max-w-7xl mx-auto pointer-events-auto">
                 <motion.div
                     initial={{ opacity: 0, y: -20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
                 >
-                    <h1 className="text-4xl font-bold text-center text-numerano-navy mb-4">Our Activities</h1>
-                    <p className="text-center text-gray-600 mb-16 max-w-2xl mx-auto">
+                    <h1 className="text-4xl font-bold text-center text-white mb-4">Our Activities</h1>
+                    <p className="text-center text-cyan-100/70 mb-16 max-w-2xl mx-auto">
                         Explore our journey of events, workshops, and competitions.
                     </p>
                 </motion.div>
@@ -75,22 +75,22 @@ export default function Activities() {
                             key={event.id}
                             variants={item}
                             whileHover={{ y: -10 }}
-                            className="bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer hover:shadow-2xl transition duration-300"
+                            className="bg-slate-800/40 backdrop-blur-md rounded-xl shadow-xl border border-cyan-500/20 overflow-hidden cursor-pointer hover:shadow-cyan-500/20 hover:border-cyan-400/50 transition-all duration-300"
                             onClick={() => setSelectedEvent(event)}
                         >
                             <div className="h-48 overflow-hidden">
                                 <img
                                     src={event.imageUrl}
                                     alt={event.title}
-                                    className="w-full h-full object-cover transform hover:scale-105 transition duration-500"
+                                    className="w-full h-full object-cover transform hover:scale-105 transition duration-500 opacity-80 hover:opacity-100"
                                 />
                             </div>
                             <div className="p-6">
-                                <div className="text-sm font-semibold text-numerano-blue mb-2">{event.date}</div>
-                                <h3 className="text-xl font-bold text-numerano-navy mb-3">{event.title}</h3>
-                                <p className="text-gray-600 line-clamp-3 mb-4">{event.description}</p>
-                                <div className="text-numerano-navy font-semibold text-sm flex items-center">
-                                    View Details <span className="ml-1">→</span>
+                                <div className="text-sm font-semibold text-cyan-400 mb-2">{event.date}</div>
+                                <h3 className="text-xl font-bold text-white mb-3">{event.title}</h3>
+                                <p className="text-cyan-100/70 line-clamp-3 mb-4">{event.description}</p>
+                                <div className="text-cyan-300 font-semibold text-sm flex items-center group-hover:text-cyan-200 transition-colors">
+                                    View Details <span className="ml-1 group-hover:translate-x-1 transition-transform">→</span>
                                 </div>
                             </div>
                         </motion.div>

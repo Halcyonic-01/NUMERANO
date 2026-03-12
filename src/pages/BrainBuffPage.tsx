@@ -1,5 +1,3 @@
-// @ts-ignore
-import React from 'react';
 import BrainBuffContainer from '../components/BrainBuff/BrainBuffContainer';
 
 const BrainBuff = () => {

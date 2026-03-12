@@ -1,15 +1,11 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { API_ENDPOINTS } from '../config/api';
 
 export default function Feedback() {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
-        rating: '',
-        relevance: '',
-        difficulty: '',
-        participation: '',
-        nextTopic: '',
         description: ''
     });
     const [status, setStatus] = useState<'idle' | 'submitting'>('idle');
@@ -45,7 +41,7 @@ export default function Feedback() {
         setStatus('submitting');
 
         try {
-            const response = await fetch('http://localhost:8000/api/feedback', {
+            const response = await fetch(API_ENDPOINTS.feedback, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -63,11 +59,6 @@ export default function Feedback() {
             setFormData({
                 name: '',
                 email: '',
-                rating: '',
-                relevance: '',
-                difficulty: '',
-                participation: '',
-                nextTopic: '',
                 description: ''
             });
         } catch (error) {
@@ -88,7 +79,7 @@ export default function Feedback() {
     };
 
     return (
-        <div className="bg-gray-100 py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        <div className="py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden pointer-events-none z-10">
             {/* Toast Notification */}
             <AnimatePresence>
                 {notification.show && (
@@ -96,7 +87,7 @@ export default function Feedback() {
                         initial={{ opacity: 0, x: 100 }}
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: 100 }}
-                        className={`fixed top-24 right-4 z-50 px-6 py-4 rounded-lg shadow-xl flex items-center space-x-3 ${notification.type === 'success' ? 'bg-green-100 border-l-4 border-green-500 text-green-700' : 'bg-red-100 border-l-4 border-red-500 text-red-700'
+                        className={`fixed top-24 right-4 z-50 px-6 py-4 rounded-lg shadow-xl flex items-center space-x-3 pointer-events-auto ${notification.type === 'success' ? 'bg-green-100 border-l-4 border-green-500 text-green-700' : 'bg-red-100 border-l-4 border-red-500 text-red-700'
                             }`}
                     >
                         <span className="font-bold">{notification.type === 'success' ? 'Success' : 'Error'}</span>
@@ -110,112 +101,49 @@ export default function Feedback() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8 }}
-                className="max-w-3xl mx-auto bg-white rounded-2xl shadow-2xl p-8 md:p-12"
+                className="max-w-3xl mx-auto bg-[#0B1120] rounded-2xl shadow-2xl p-8 md:p-12 border border-cyan-500/20 pointer-events-auto"
             >
-                <h1 className="text-4xl font-bold text-numerano-navy mb-4 text-center">Feedback Form</h1>
-                <p className="text-gray-600 text-center mb-10 text-lg">Help us improve future events.</p>
+                <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-cyan-300 mb-4 text-center">Feedback Form</h1>
+                <p className="text-cyan-200/60 text-center mb-10 text-lg">Help us improve future events.</p>
 
                 <form onSubmit={handleSubmit} className="space-y-8">
-                    {/* Personal Info (Optional) */}
+                    {/* Personal Info */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <motion.div variants={formItem} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-                            <label className="block text-gray-700 font-semibold mb-2">Name (Optional)</label>
+                            <label className="block text-cyan-200 font-semibold mb-2">Name (Optional)</label>
                             <input
                                 type="text"
                                 name="name"
                                 value={formData.name}
                                 onChange={handleChange}
-                                className="w-full p-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-numerano-navy focus:outline-none transition text-gray-800"
+                                className="w-full p-4 bg-slate-900/50 border border-cyan-500/20 rounded-xl focus:ring-2 focus:ring-cyan-400 focus:border-transparent focus:outline-none transition text-white placeholder-cyan-200/30"
                                 placeholder="Your Name"
                             />
                         </motion.div>
 
                         <motion.div variants={formItem} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: 0.1 }}>
-                            <label className="block text-gray-700 font-semibold mb-2">Email (Optional)</label>
+                            <label className="block text-cyan-200 font-semibold mb-2">Email (Optional)</label>
                             <input
                                 type="email"
                                 name="email"
                                 value={formData.email}
                                 onChange={handleChange}
-                                className="w-full p-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-numerano-navy focus:outline-none transition text-gray-800"
+                                className="w-full p-4 bg-slate-900/50 border border-cyan-500/20 rounded-xl focus:ring-2 focus:ring-cyan-400 focus:border-transparent focus:outline-none transition text-white placeholder-cyan-200/30"
                                 placeholder="your@email.com"
                             />
                         </motion.div>
                     </div>
 
-                    <motion.div variants={formItem} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-                        <label className="block text-numerano-navy font-bold mb-3">1. Activity Rating <span className="text-red-500">*</span></label>
-                        <div className="flex space-x-4 justify-center bg-gray-50 p-4 rounded-xl border border-gray-200">
-                            {[1, 2, 3, 4, 5].map(num => (
-                                <label key={num} className="flex flex-col items-center cursor-pointer group">
-                                    <input
-                                        type="radio"
-                                        name="rating"
-                                        value={num}
-                                        checked={formData.rating === String(num)}
-                                        onChange={handleChange}
-                                        required
-                                        className="w-5 h-5 text-blue-600 focus:ring-blue-500 border-gray-300"
-                                    />
-                                    <span className="mt-1 text-gray-500 font-semibold group-hover:text-blue-600 transition">{num}</span>
-                                </label>
-                            ))}
-                        </div>
-                    </motion.div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <motion.div variants={formItem} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: 0.1 }}>
-                            <label className="block text-gray-700 font-semibold mb-2">2. Curriculum Relevance <span className="text-red-500">*</span></label>
-                            <select name="relevance" value={formData.relevance} onChange={handleChange} required className="w-full p-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-numerano-navy focus:border-transparent transition text-gray-800">
-                                <option value="">Select relevance...</option>
-                                <option value="Yes, very relevant">Yes, very relevant</option>
-                                <option value="Somewhat relevant">Somewhat relevant</option>
-                                <option value="Not relevant">Not relevant</option>
-                            </select>
-                        </motion.div>
-
-                        <motion.div variants={formItem} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: 0.2 }}>
-                            <label className="block text-gray-700 font-semibold mb-2">3. Brain Buff Difficulty <span className="text-red-500">*</span></label>
-                            <select name="difficulty" value={formData.difficulty} onChange={handleChange} required className="w-full p-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-numerano-navy focus:border-transparent transition text-gray-800">
-                                <option value="">Select difficulty...</option>
-                                <option value="Easy">Easy</option>
-                                <option value="Moderate">Moderate</option>
-                                <option value="Challenging">Challenging</option>
-                            </select>
-                        </motion.div>
-                    </div>
-
-                    <motion.div variants={formItem} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: 0.3 }}>
-                        <label className="block text-gray-700 font-semibold mb-2">4. Participation Frequency <span className="text-red-500">*</span></label>
-                        <select name="participation" value={formData.participation} onChange={handleChange} required className="w-full p-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-numerano-navy focus:border-transparent transition text-gray-800">
-                            <option value="">Frequency...</option>
-                            <option value="Every event">Every event</option>
-                            <option value="Most events">Most events</option>
-                            <option value="Occasionally">Occasionally</option>
-                            <option value="Never">Never</option>
-                        </select>
-                    </motion.div>
-
-                    <motion.div variants={formItem} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: 0.4 }}>
-                        <label className="block text-gray-700 font-semibold mb-2">5. Request Next Module <span className="text-red-500">*</span></label>
-                        <select name="nextTopic" value={formData.nextTopic} onChange={handleChange} required className="w-full p-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-numerano-navy focus:border-transparent transition text-gray-800">
-                            <option value="">Select topic...</option>
-                            <option value="Workshops">Workshops</option>
-                            <option value="Guest Lectures">Guest Lectures</option>
-                            <option value="Competitions">Competitions</option>
-                            <option value="Socializers">Socializers</option>
-                        </select>
-                    </motion.div>
-
-                    <motion.div variants={formItem} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: 0.5 }}>
-                        <label className="block text-gray-700 font-semibold mb-2">Additional Comments</label>
+                    <motion.div variants={formItem} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: 0.2 }}>
+                        <label className="block text-cyan-200 font-semibold mb-2">Feedback <span className="text-red-500">*</span></label>
                         <textarea
                             name="description"
                             value={formData.description}
                             onChange={handleChange}
-                            rows={4}
-                            className="w-full p-4 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-numerano-navy focus:outline-none transition resize-none text-gray-800"
-                            placeholder="Your thoughts..."
+                            required
+                            rows={6}
+                            className="w-full p-4 bg-slate-900/50 border border-cyan-500/20 rounded-xl focus:ring-2 focus:ring-cyan-400 focus:outline-none transition resize-none text-white placeholder-cyan-200/30"
+                            placeholder="Share your thoughts, suggestions, or ideas..."
                         ></textarea>
                     </motion.div>
 
@@ -224,7 +152,7 @@ export default function Feedback() {
                         whileTap={{ scale: 0.98 }}
                         type="submit"
                         disabled={status === 'submitting'}
-                        className={`w-full text-white text-lg font-bold py-4 rounded-xl transition shadow-lg ${status === 'submitting' ? 'bg-gray-400 cursor-not-allowed' : 'bg-numerano-navy hover:bg-blue-900'
+                        className={`w-full text-white text-lg font-bold py-4 rounded-xl transition shadow-lg flex items-center justify-center gap-2 ${status === 'submitting' ? 'bg-slate-600 cursor-not-allowed opacity-50' : 'bg-gradient-to-r from-cyan-500 to-blue-600 hover:shadow-cyan-500/30 shadow-lg'
                             }`}
                     >
                         {status === 'submitting' ? 'Submitting...' : 'Submit Feedback'}

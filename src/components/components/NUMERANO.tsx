@@ -67,9 +67,8 @@ const ImageTypewriter = ({
       {text.split("").map((char, i) => (
         <div
           key={i}
-          className="relative transition-all duration-500 ease-out"
+          className={`relative transition-all duration-500 ease-out ${i === 0 ? '' : '-ml-[1.9rem] md:-ml-[4.8rem]'}`}
           style={{
-            marginLeft: i === 0 ? 0 : "-4.8rem",
             opacity: i < index ? 1 : 0,
             transform: i < index 
               ? `translateY(${Math.sin(i * 0.3) * 2}px)` 
@@ -176,7 +175,7 @@ export default function NUMERANO() {
             transition-opacity duration-2000 ease-in-out"
         />
 
-        <div className="relative z-20 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center">
+        <div className="relative z-20 flex justify-center py-8 md:py-16">
           <ImageTypewriter text="NUMERANO" />
         </div>
 
